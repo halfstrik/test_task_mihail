@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 
 from django.test import TestCase
 from goods.models import Stuff, Property
-from goods.views import get_stuff
+from goods.views import get_stuff, get_properties
 
 
 class StuffTestCase(TestCase):
@@ -35,3 +35,17 @@ class StuffViewTestCase(TestCase):
         stuff = Stuff.objects.create(name=u'Стакан1', description=u'Хороший стакан')
         Stuff.objects.create(name=u'Стакан2', description=u'Хороший стакан')
         self.assertEqual([stuff], get_stuff(1, None))
+
+    def test_get_stuff_with_property_name(self):
+        stuff = Stuff.objects.create(name=u'Стакан1', description=u'Хороший стакан')
+        Property.objects.create(value=u'СуперСвойство', stuff=stuff)
+        Stuff.objects.create(name=u'Стакан2', description=u'Хороший стакан')
+        self.assertEqual([stuff], get_stuff(None, u'СуперСвойство'))
+
+    def test_get_properties_when_no_properties(self):
+        self.assertEqual([], get_properties())
+
+    def test_get_properties_when_there_is_one_property(self):
+        stuff = Stuff.objects.create(name=u'Стакан1', description=u'Хороший стакан')
+        prop = Property.objects.create(value=u'TestProp', stuff=stuff)
+        self.assertEqual([prop], get_properties())

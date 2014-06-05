@@ -16,6 +16,12 @@
     <option>4</option>
     <option>8</option>
 </select>
+<label for="property">Property value to filter</label>
+<select id="property" data-bind="options: property_value_options,
+                                 value: property_value,
+                                 optionsCaption: 'Choose property value...',
+                                 event:{ change: updateSelect }">
+</select>
 <ul data-bind="foreach: stuffs">
     <li>
         <strong data-bind="text: name"></strong>
