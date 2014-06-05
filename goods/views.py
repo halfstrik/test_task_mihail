@@ -11,7 +11,8 @@ def home_view(request):
 def get_stuff_view(request):
     result = []
     for stuff in get_stuff(request.GET.get('amount', None), request.GET.get('property_value', None)):
-        item = {'name': stuff.name, 'description': stuff.description, 'price': stuff.price}
+        item = {'name': stuff.name, 'description': stuff.description, 'price': stuff.price,
+                'imageUrl': stuff.image.url}
         try:
             item['property'] = stuff.property.value
         except Property.DoesNotExist:
