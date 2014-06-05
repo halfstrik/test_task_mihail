@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 
 from django.test import TestCase
 from goods.models import Stuff, Property
-from goods.views import StuffIndexView
+from goods.views import get_stuff
 
 
 class StuffTestCase(TestCase):
@@ -20,16 +20,18 @@ class PropertyTestCase(TestCase):
 
 
 class StuffViewTestCase(TestCase):
-    def test_StuffIndexView_get_queryset_when_there_is_no_stuff(self):
-        self.assertEqual(list(StuffIndexView().get_queryset()), [])
-
-    def test_StuffIndexView_get_queryset_when_there_is_one_stuff(self):
-        stuff = Stuff.objects.create(name=u'Стакан', description=u'Хороший стакан')
-        self.assertEqual(list(StuffIndexView().get_queryset()), [stuff, ])
-
-    def test_stuff_index_view_when_one_stuff_present(self):
-        Stuff.objects.create(name=u'Стакан', description=u'Хороший стакан')
-        response = self.client.get(reverse(u'goods:stuff_index'))
+    def test_home_view(self):
+        response = self.client.get(reverse(u'home'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, u'Стакан')
-        self.assertQuerysetEqual(response.context[u'stuffs'], ['<Stuff: Стакан (Хороший стакан)>'])
+
+    def test_get_stuff_without_stuff(self):
+        self.assertEqual([], get_stuff(None, None))
+
+    def test_get_stuff_with_one_stuff_item(self):
+        stuff = Stuff.objects.create(name=u'Стакан', description=u'Хороший стакан')
+        self.assertEqual([stuff], get_stuff(None, None))
+
+    def test_get_stuff_with_two_stuff_item_but_requested_amount_one(self):
+        stuff = Stuff.objects.create(name=u'Стакан1', description=u'Хороший стакан')
+        Stuff.objects.create(name=u'Стакан2', description=u'Хороший стакан')
+        self.assertEqual([stuff], get_stuff(1, None))
