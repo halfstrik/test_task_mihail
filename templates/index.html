@@ -1,12 +1,22 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
     <title>Stuff index</title>
+    <script src="{% static "js/jquery-2.1.1.min.js" %}"></script>
+    <script src="{% static "js/knockout-3.1.0.js" %}"></script>
+    <script src="{% static "js/stuff.js" %}"></script>
 </head>
 <body>
-<ul>
-    <p>Hello</p>
+<ul data-bind="foreach: stuffs">
+    <li>
+        <strong data-bind="text: name"></strong>
+
+        <p data-bind="text: description"></p>
+
+        <p data-bind="text: property"></p>
+    </li>
 </ul>
 </body>
 </html>

@@ -15,7 +15,7 @@ def get_stuff_view(request):
         try:
             item['property'] = stuff.property.value
         except Property.DoesNotExist:
-            pass
+            item['property'] = None
         result.append(item)
 
     return HttpResponse(json.dumps(result))
