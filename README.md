@@ -10,10 +10,10 @@ Python 2.7.6
  - simplejson 3.5.2
 
 Есть вероятность некорректной работы в старых браузерах, из-за функций JS работы с историей:
-  window.history.pushState
+`window.history.pushState`
   
 Запускаем встроенный веб-сервер:
-  python manage.py runserver 8000
+`python manage.py runserver 8000`
   
 Переходим по ссылке: http://127.0.0.1:8000/
 
