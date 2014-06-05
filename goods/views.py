@@ -1,4 +1,4 @@
-import json
+import simplejson as json
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from goods.models import Stuff, Property
@@ -11,14 +11,14 @@ def home_view(request):
 def get_stuff_view(request):
     result = []
     for stuff in get_stuff(request.GET.get('amount', None), request.GET.get('property_value', None)):
-        item = {'name': stuff.name, 'description': stuff.description}
+        item = {'name': stuff.name, 'description': stuff.description, 'price': stuff.price}
         try:
             item['property'] = stuff.property.value
         except Property.DoesNotExist:
             item['property'] = None
         result.append(item)
 
-    return HttpResponse(json.dumps(result))
+    return HttpResponse(json.dumps(result, use_decimal=True))
 
 
 def get_stuff(amount, property_value):
