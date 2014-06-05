@@ -1,5 +1,5 @@
 """
-WSGI config for test_task_nikita project.
+WSGI config for test_task_mihail project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

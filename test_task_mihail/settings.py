@@ -1,5 +1,5 @@
 """
-Django settings for test_task_nikita project.
+Django settings for test_task_mihail project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
