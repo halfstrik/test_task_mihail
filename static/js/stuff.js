@@ -14,6 +14,15 @@ SHOP.stuff = SHOP.stuff || (function () {
                         stuffViewModel.stuffs.push(json_data[i]);
                     }
                 });
+            },
+            amount: ko.observable('All'),
+            updateSelect: function () {
+                if (this.amount() === 'All') {
+                    window.history.pushState(null, 'Change parameters', '/');
+                } else {
+                    window.history.pushState(null, 'Change parameters', '/?amount=' + this.amount());
+                }
+                this.update();
             }
         };
         ko.applyBindings(stuffViewModel);

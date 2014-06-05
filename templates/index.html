@@ -9,6 +9,13 @@
     <script src="{% static "js/stuff.js" %}"></script>
 </head>
 <body>
+<label for="amount">Amount of stuff on page</label>
+<select id="amount" data-bind="value: amount, event:{ change: updateSelect }">
+    <option>All</option>
+    <option>2</option>
+    <option>4</option>
+    <option>8</option>
+</select>
 <ul data-bind="foreach: stuffs">
     <li>
         <strong data-bind="text: name"></strong>
